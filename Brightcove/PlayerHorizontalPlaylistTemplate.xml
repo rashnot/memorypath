@@ -1,0 +1,112 @@
+<Runtime>
+  <Theme name="Deluxe" style="Light">
+    <Style id="default"><![CDATA[
+        .bodyText  {
+            fontFace: "Arial";
+            active: #3E3E3E;
+            rollover: #3E3E3E;
+            selected: #3E3E3E;
+            disabled: #3E3E3E;
+        }
+        .linkText  {
+            fontFace: "Arial";
+            active: #4066b2;
+            rollover: #4066b2;
+            selected: #4066b2;
+            disabled: #4066b2;
+        }
+        .titleText  {
+            fontFace: "Arial";
+            active: #4066b2;
+            rollover: #4066b2;
+            selected: #4066b2;
+            disabled: #4066b2;
+        }
+        .thumbnail {
+            innerBorderGradientTop: #EEEEEE;
+            innerBorderGradientBottom: #EEEEEE;
+            innerBorderRolloverGradientTop: #EEEEEE;
+            innerBorderRolloverGradientBottom: #EEEEEE;
+            innerBorderSelectedGradientTop: #EEEEEE;
+            innerBorderSelectedGradientBottom: #EEEEEE;
+            outerBorderGradientTop: #EEEEEE;
+            outerBorderGradientBottom: #EEEEEE;
+            outerBorderRolloverGradientTop: #EEEEEE;
+            outerBorderRolloverGradientBottom: #EEEEEE;
+            outerBorderSelectedGradientTop: #EEEEEE;
+            outerBorderSelectedGradientBottom: #EEEEEE;
+        }
+        ]]></Style>
+  </Theme>
+  <Layout>
+    <VBox>
+      <ChromelessVideoPlayer id="videoPlayer" useOverlayMenu="false" video="{videoList.selectedItem}">
+        <ChromelessControls boxType="vbox" vAlign="bottom" visible="{!videoPlayer.menu.open}">
+          <!-- Playback controls -->
+          <HBox hAlign="center" height="60">
+            <HBox id="defaultView" gutter="6" padding="10" vAlign="middle" maxWidth="820">
+              <ToggleButton id="playButton" width="65" iconName="play" toggledIconName="pause" tooltip="controls play tooltip" toggledTooltip="controls pause tooltip" click="{videoPlayer.play()}" toggledClick="{videoPlayer.pause()}" toggled="{videoPlayer.playing}" enabled="{videoPlayer.video}" includeInLayout="{adContext.playPauseVisible}"/>
+              <Canvas height="30">
+                <GraphicBlock/>
+                <!-- Non-Ad mode -->
+                <ViewStack selectedIndex="{videoPlayer.playbackType}" visible="{!adContext.sponsorMessageVisible}">
+                  <!-- VOD -->
+                  <HBox gutter="4" vAlign="middle">
+                    <Spacer width="1"/>
+                    <Canvas width="40">
+                      <Label id="positionLabel" y="-1" text="{format(videoPlayer.mediaPosition, SecondsTimecodeFormatter)}" vAlign="middle" hAlign="right" alpha=".75"/>
+                    </Canvas>
+                    <Playhead id="playhead" height="6" mediaController="{videoPlayer}" useTimeToolTip="true" enabled="{videoPlayer.video}"/>
+                    <Canvas width="40">
+                      <Label id="durationLabel" y="-1" text="{format(videoPlayer.mediaDuration, SecondsTimecodeFormatter)}" vAlign="middle" hAlign="left" alpha=".75"/>
+                    </Canvas>
+                    <Spacer width="1"/>
+                  </HBox>
+                  <!-- Live -->
+                  <HBox padding="7">
+                    <Canvas>
+                      <Label text="live media message" y="-1" truncate="true"/>
+                    </Canvas>
+                  </HBox>
+                  <!-- Bumper -->
+                  <HBox/>
+                </ViewStack>
+                <!-- Ad mode -->
+                <VBox visible="{adContext.sponsorMessageVisible}">
+                  <HBox vAlign="middle">
+                    <Spacer width="7"/>
+                    <Label text="sponsor message" vAlign="middle"/>
+                    <Label id="adTimePosition" visible="{adContext.timePositionVisible}" hAlign="right" vAlign="middle" text="{format(videoPlayer.positiveTimeRemaining, SecondsTimecodeFormatter)}"/>
+                    <Spacer width="7"/>
+                  </HBox>
+                  <Spacer height="1"/>
+                </VBox>
+              </Canvas>
+              <Button id="shareButton" width="35" height="30" iconName="socialShare" tooltip="community socialShare tooltip" data="{videoPlayer.video}" click="{videoPlayer.toggleMenuPage('Share', data)}" visible="{adContext.menuOptionsVisible}" includeInLayout="{!videoPlayer.fullscreen}"/>
+              <ToggleButton id="fullscreenButton" width="35" height="30" iconName="maximize" toggledIconName="minimize" tooltip="controls maximize tooltip" toggledTooltip="controls minimize tooltip" click="{videoPlayer.goFullScreen(true)}" toggledClick="{videoPlayer.goFullScreen(false)}" toggled="{videoPlayer.fullscreen}" includeInLayout="{adContext.maximizeVisible}"/>
+              <VolumeControl id="volumeButton" width="35" height="30" mediaController="{videoPlayer}" useOverlayLayer="false" iconName="volume" mutedIconName="muted" tooltip="mute tooltip" mutedTooltip="unmute tooltip" useZeroWidth="true" horizontalPadding="10" includeInLayout="{adContext.volumeVisible}" popupGutter="3"/>
+            </HBox>
+          </HBox>
+        </ChromelessControls>
+      </ChromelessVideoPlayer>
+      <!-- Playlist controls -->
+      <Canvas height="100" includeInLayout="{!videoPlayer.fullscreen}" visible="{!adContext.sponsorMessageVisible}">
+        <GraphicBlock/>
+        <VBox height="110" padding="10" vAlign="middle">
+          <TileList id="videoList" height="70" selectOnClick="true" automaticAdvance="true" columnWidth="250" rowHeight="60" columnGutter="3" buttonSize="26" buttonOffsetY="-5">
+            <ListItem showBack="false" boxType="hbox" height="70" gutter="4">
+              <VBox vAlign="top">
+                <ThumbnailButton width="85" height="70" imageInset="0" data="{currentItem}" source="{currentItem.thumbnailURL}"/>
+              </VBox>
+              <VBox vAlign="top" width="160">
+                <TitleLabel text="{currentItem.displayName}" truncate="true" height="50%" width="155" size="11" multiline="true"/>
+                <Spacer height="3" width="3"/>
+                <Label text="{currentItem.shortDescription}" truncate="true" height="50%" width="155" size="11" multiline="true"/>
+              </VBox>
+            </ListItem>
+          </TileList>
+        </VBox>
+      </Canvas>
+    </VBox>
+  </Layout>
+</Runtime>

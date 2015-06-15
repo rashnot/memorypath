@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
+<html>
+<head>
+<title></title>
+<script type="text/javascript" src="../SiteAssets/jquery.qtip.js"></script>
+<script type="text/javascript" src="../SiteAssets/scripts.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
+<link rel="stylesheet" href="../SiteAssets/style.css">
+<link rel="stylesheet" href="../SiteAssets/jquery.qtip.css">
+</head>
+<body>
+<div id="divContainer" class="divContainer">
+  <div id="page-content">
+    <div id="topicImage"></div>
+    <div class="topicHeading"></div>
+    <div class="content"></div>
+    <div id="transitionPatch"></div>
+  </div>
+    <div id="dialog">
+  <div style="width:700px; margin-left:auto; margin-right:auto;">
+    <p  style="font-size:165%;  color: #003399;font-weight:bold">My Learning Campus helps you make the most of your learning.</p>
+  </div>
+  </div>
+  <div id="imageholder">
+    <div id="bigImage"><img src="../SiteAssets/Home.png"/></div>
+    <div id="smallImage"></div>
+    <div id="btnImg0" class="btnImage" titleText="Learning Insurance at Zurich"></div>
+    <div id="btnImg1" class="btnImage" titleText="Learning inside Zurich, Catalog"></div>
+    <div id="btnImg2" class="btnImage" titleText="Learning outside Zurich, Catalog"></div>
+    <div id="btnImg3" class="btnImage" titleText="Learning from expertise"></div>
+    <div id="btnImg4" class="btnImage" titleText="Learning cinema"></div>
+    <div id="btnImg5" class="btnImage" titleText="Learning from customers and distribution partners"></div>
+    <div id="btnImg6" class="btnImage" titleText="Learning Zurich history"></div>
+    <div id="btnImg7" class="btnImage" titleText="Being at my best - What it means to me."></div>
+    <div id="btn0" class="btn" onMouseOver="fHomePageBtnOver(this,0)" onMouseOut="fHomePageBtnOut(this,0)"></div>
+    <div id="btn1" class="btn" onMouseOver="fHomePageBtnOver(this,1)" onMouseOut="fHomePageBtnOut(this,1)"></div>
+    <div id="btn2" class="btn" onMouseOver="fHomePageBtnOver(this,2)" onMouseOut="fHomePageBtnOut(this,2)"></div>
+    <div id="btn3" class="btn" onMouseOver="fHomePageBtnOver(this,3)" onMouseOut="fHomePageBtnOut(this,3)"></div>
+    <div id="btn4" class="btn" onMouseOver="fHomePageBtnOver(this,4)" onMouseOut="fHomePageBtnOut(this,4)"></div>
+    <div id="btn5" class="btn" onMouseOver="fHomePageBtnOver(this,5)" onMouseOut="fHomePageBtnOut(this,5)"></div>
+    <div id="btn6" class="btn" onMouseOver="fHomePageBtnOver(this,6)" onMouseOut="fHomePageBtnOut(this,6)"></div>
+    <div id="btn7" class="btn" onMouseOver="fHomePageBtnOver(this,7)" onMouseOut="fHomePageBtnOut(this,7)"></div>
+    <!--div id="btnImage2" class="btnImage" ></div>
+		<div id="btn2" class="btn" title="Learning from Outside"></div-->
+  </div>
+  <!--
+  <div class="navigationBtn btnBack" onClick="fNavigate('back')" title=""></div>
+  <div class="navigationBtn btnNext" onClick="fNavigate('next')" title=""></div>
+  -->
+  <div class="TopNavigationBtn btnMyLearnPlan" onClick="fLoadMyPlan()" title="View the courses you have added">My Learning Cart</div>
+  <div class="TopNavigationBtn btnGEMS" onClick="parent.fOpenLink('https://b0d02t02.rz.ch.zurich.com/irj/portal/glms2SF_ess?sap-destUrl=https%3a%2f%2fzurich%2eplateau%2ecom%2flearning%2fuser%2fdeeplink%5fredirect%2ejsp%3flinkId%3dHOME%5fPAGE%26fromSF%3dY&company=Zurich')" title="Go to My Learning">Go to My Learning</div>
+  <div class="TopNavigationBtn btn702010" onClick="parent.fOpenLink('https://collaboration.zurich.com/community/00900/Campus%20Documents/70-20-10%20Global%20Job%20Aid%20all%20employees.docx')" title="70:20:10 Development Guide">70:20:10 Development Guide</div>
+  <div class="TopNavigationBtn btnInsTerms" onClick="parent.fOpenLink('http://www.irmi.com/forms/online/insurance-glossary/terms.aspx')" target="_blank" title="Glossary of insurance terms">Glossary of insurance terms</div>
+  <div class="TopNavigationBtn btnGlossary" onClick="parent.fOpenLink('https://intranet.zurich.com/content/Pages/Jargonbuster.aspx')" target="_blank" title="Glossary of acronyms">Glossary of<br/>acronyms</div>
+  <div class="TopNavigationBtn btnInternational" onClick="parent.fOpenLink('http://zurich.culturewizard.com/Login?returnurl=/default.aspx')" target="_blank" title="Doing business internationally">Working with other cultures anywhere, anytime</div>
+  <div class="TopNavigationBtn btnHelp" onClick="parent.fOpenLink('https://collaboration.zurich.com/community/00900/SiteAssets/Frequently-Asked-Questions.pptx')" target="_blank" title="Click for help">Frequently asked questions</div>
+  <div class="TopNavigationBtn btnLandD" onClick="parent.fOpenLink('https://collaboration.zurich.com/community/00900/SiteAssets/Who-to-call-Zurich-Learning-Community.pptx')" target="_blank" title="Who to call in the Zurich Learning Community">Who to call in the Zurich Learning Community</div>
+  <div class="TopNavigationBtn btnFeedback" onclick="javascript:SP.UI.ModalDialog.showModalDialog({ url: 'https://collaboration.zurich.com/community/00900/_layouts/listform.aspx?PageType=8&ListId={526267DB-4EF6-4CB2-80C4-2454834A9ABB}&RootFolder=IsDlg=1', title: 'Tell us what you think' }); return false;" >Tell us what you think</div>
+
+
+
+
+
+
+</div>
+<script>
+
+$(document).ready(function(){
+
+	fBuildBtnEvents();
+
+	$('#btn7').qtip({
+
+		content: {
+			text: 'Watch out for the changing videos from different countries. What inspires us to keep learning and improving so we can deliver results?'
+		},
+		position: {
+			adjust: {
+				x: 5,
+				y: 20
+			}
+		},
+		style: {
+			width: '433px'
+		}
+	});
+
+	$('#btn0').qtip({
+
+		content: {
+			text: 'Watch-and-learn how insurance works in Zurich: how we help our customers manage the risks they face, make their lives more secure, and help them grow their business.'
+		},
+		position: {
+			my: 'bottom center',
+			at: 'top center',
+			adjust: {
+				x: -5,
+				y: -8
+			}
+		},
+		style: {
+			width: '332px'
+		}
+
+
+	});
+
+	$('#btn1').qtip({
+
+		content: {
+			text: 'Learn from the open courses across Zurich.'
+		},
+		position: {
+			adjust: {
+				x: -13,
+				y:10
+			}
+		},
+		style: {
+			width: '300px'
+		}
+
+
+	});
+
+
+	$('#btn2').qtip({
+
+		content: {
+			text: 'Explore outside learning institutions.  Balance inside knowledge with outside-in perspective.'
+		},
+		position: {
+			my: 'center left',
+			adjust: {
+				x: 15,
+				y:35
+			}
+		},
+		style: {
+			width: '260px'
+		}
+
+
+	});
+
+
+	$('#btn3').qtip({
+
+		content: {
+			text: 'Learn from the open communities of expertise who share common learning interests. They regularly and virtually interact to learn from each other on how to improve what they do, seek help and give help.'
+		},
+		position: {
+			adjust: {
+				x: 10,
+				y: 15
+			}
+		},
+		style: {
+			width: '332px'
+		}
+
+
+	});
+
+	$('#btn5').qtip({
+
+		content: {
+			text: 'Learn from what customers say about Zurich. Our customer-facing experts from around the world share what they‘re doing to improve customer care.'
+		},
+		position: {
+			my: 'center right',
+			adjust: {
+				x: -132,
+				y: 40
+			}
+		},
+		style: {
+			width: '265px'
+		}
+
+
+	});
+
+	$('#btn4').qtip({
+
+		content: {
+			text: 'Now Showing! Watch-and-learn through video modules, and people’s experiences and passion for what they do.'
+		},
+		position: {
+			my: 'bottom right',
+			at: 'top left',
+			adjust: {
+				x: -10,
+				y: 20,
+			}
+		},
+		style: {
+			width: '332px'
+		}
+
+
+	});
+
+
+
+	$('#btn6').qtip({
+
+		content: {
+			text: 'Watch out for the changing images every week. Be inspired by how Zurich has evolved from a large Swiss insurer into one of the world’s leading insurance groups.'
+		},
+		position: {
+			my: 'bottom right',
+			at: 'top left',
+			adjust: {
+				x: 20,
+				y: 10
+			}
+		},
+		style: {
+			width: '320px'
+		}
+
+
+	});
+
+
+
+
+
+
+
+});
+</script>
+</body>
+</html>
