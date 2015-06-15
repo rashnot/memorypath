@@ -212,23 +212,27 @@ function fGetAllCourses() {
                     tmpObj.ID = myrow.attr("ows_ID");
                     tmpObj.Title = myrow.attr("ows_LinkTitle");
                     tmpObj.GLMSCourceId = myrow.attr("ows_GLMSCourceId");
+					if (tmpObj.GLMSCourceId == undefined){
+						tmpObj.GLMSCourceId = "";
+					}
                     tmpObj.Academy = myrow.attr("ows_Academy");
                     tmpObj.Description = myrow.attr("ows_Description");
                     tmpObj.Language = fGeneratestr((myrow.attr("ows_Course_x0020_Languages") === undefined) ? "" : myrow.attr("ows_Course_x0020_Languages"));
                     //tmpObj.Language=fGeneratstr("2;#English;#13;#Spanish;#3;#French;#4;#Italian")
                     tmpObj.CourseType = myrow.attr("ows_CourseType");
                     tmpObj.Level = myrow.attr("ows_Level");
-                    tmpObj.DeliveryMethod = (myrow.attr("ows_DeliveryMethod") === undefined) ? "" : myrow.attr("ows_DeliveryMethod");
+					if (tmpObj.Level == undefined){
+						tmpObj.Level = "";
+					}
+					tmpObj.DeliveryMethod = (myrow.attr("ows_DeliveryMethod")=== undefined) ? "" : myrow.attr("ows_DeliveryMethod");
 
                     var DestinationLink = myrow.attr("ows_DestinationLink");
 
                     if (DestinationLink == undefined || DestinationLink == 'undefined') {
                         //DestinationLink = myrow.attr("ows_DestinationUrl");
                     }
-                    if (DestinationLink == undefined || DestinationLink == 'undefined')
-                        DestinationLink = 'http://www.zurich.com/'
-                    else
-                        DestinationLink = DestinationLink.split(",")[0]
+					if(DestinationLink == undefined || DestinationLink == 'undefined') DestinationLink = 'http://www.zurich.com/'
+					else DestinationLink = DestinationLink.split(",")[0]
                     tmpObj.DestinationLink = DestinationLink;
 
 
@@ -247,8 +251,7 @@ function fGetAllCourses() {
 
 
                     var _Image = myrow.attr("ows_PublishingPageImage");
-                    if (_Image == undefined || _Image == 'undefined')
-                        _Image = '<img src="../SiteAssets/zurich-logo.png" style="border:0px solid" />';
+					if(_Image == undefined || _Image == 'undefined') _Image = '<img src="../SiteAssets/zurich-logo.png" style="border:0px solid" />';
                     tmpObj.PublishingPageImage = _Image;
 
                     tmpObj.AcademyID = myrow.attr("ows_Academy").split(";#")[0];
@@ -1144,24 +1147,51 @@ function fShowCourseDetails(ID, obj) {
     str += '<div style="display:inline-block;  position:relative; width:100%;">';
     //str += '<div class="floatL"><div class="courseImage"><div>'+courseObj.PublishingPageImage+'</div></div></div>';			
     str += '<div class="floatL" style="margin-left:0px;">';
-    str += '<div style="height:30px;"><b>' + courseObj.Title + '</b><span class="courseLevel"> (' + courseObj.GLMSCourceId + ')</span></div>';
+	str += '<div style="height:30px;"><b>'+courseObj.Title+'</b>';
+	if (courseObj.GLMSCourceId != ""){
+		str += '	<span class="courseLevel"> ('+courseObj.GLMSCourceId+')</span>';
+	}
+	str += '</div>';
 
     if (CourseType == "Internal") {
 
-        if (courseObj.BusinessAreas != '') {
-            str += '<div class="language">' + courseObj.BusinessAreas + '</div>';
-        } else {
-            str += '<div class="language">BusinessAreas</div>';
+		if(courseObj.BusinessAreas != ''){
+			str += '<div class="language">'+courseObj.BusinessAreas+'</div>';
         }
-        str += '<div class="language">' + courseObj.Level + '</div>';
+		if (courseObj.Level != ''){
+			str += '<div class="language">'+courseObj.Level+'</div>';
+		}
 
     }
     str += '</div>';
     str += '</div>';
-
+	if (CourseType == "Internal"){
+		if ((courseObj.BusinessAreas != '')||(courseObj.Level != '')){
     str += '<div class="clearF" style="height:10px;"></div>';
+		}
+	}
     str += '<div style="display:inline-block;  position:relative; width:100%;">';
     str += '<div class="seperator clearF"></div>';
+	
+	
+	var arrPipeSeparateDesc = new Array();
+	if(courseObj.DeliveryMethod != ''){
+		arrPipeSeparateDesc.push(courseObj.DeliveryMethod);
+	}
+	if (CourseType == "Internal"){
+		if(courseObj.Duration != ''){
+			arrPipeSeparateDesc.push(courseObj.Duration +' '+courseObj.hoursDays);
+		}
+	}
+	if(courseObj.Language != ''){
+		arrPipeSeparateDesc.push('Available in '+courseObj.Language);
+	}
+	if (arrPipeSeparateDesc.length>0){
+		str += '<div class="">'+arrPipeSeparateDesc.join(' | ')+'</div>';
+		str += '<div class="seperator"></div>';	
+	}
+	
+	/*
     var cDuration = '';
     if (courseObj.Duration != '')
         cDuration = ' | ' + courseObj.Duration + ' ' + courseObj.hoursDays
@@ -1179,8 +1209,11 @@ function fShowCourseDetails(ID, obj) {
         str += '<div class="">' + courseObj.DeliveryMethod + " | " + lLang + '</div>';
     }
 
+	
     str += '<div class="seperator"></div>';
-    str += '<div class="description">' + courseObj.Description + '</div>';
+	
+	*/
+	str += '<div class="description">'+courseObj.Description+'</div>';		
     str += '<div class="clearF" style="height:20px;"></div>';
 
     str += '<div class="seperator clearF"></div>';
@@ -1215,9 +1248,10 @@ function fShowCourseDetails(ID, obj) {
     });
     animateHeight(next_tr);
 
-    if (sessionStorage) {
-        if (sessionStorage[courseObj.GLMSCourceId]) {
-        } else {
+	if(sessionStorage){
+		if (courseObj.GLMSCourceId != ""){
+			if(sessionStorage[courseObj.GLMSCourceId]){	
+			}else{
             var currCount;
             if ($().SPServices) {
                 var query = '<Query><Where><Eq><FieldRef Name="ID"/><Value Type="Text">' + courseObj.ID + '</Value></Eq></Where></Query>';
@@ -1238,10 +1272,8 @@ function fShowCourseDetails(ID, obj) {
                         });
                     }
                 });
-                if (isNaN(currCount) || currCount == undefined || currCount == 'undefined')
-                    currCount = 1;
-                else
-                    currCount++;
+					if(isNaN(currCount)|| currCount == undefined || currCount == 'undefined') currCount = 1;
+					else currCount++;
 
                 var listToBeUpdated = '<Batch OnError="Continue" ListVersion="1" ViewName="">'
                 listToBeUpdated += '<Method ID="1" Cmd="Update">';
