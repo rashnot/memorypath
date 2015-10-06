@@ -1,0 +1,29 @@
+<style type="text/css">
+
+.BlogImage {
+	width: 150px; 
+	float: left;
+}
+
+.ms-PostTitle {font-size: 20pt;}
+.ms-leftblogdate{display:none;}
+.ms-PostFooter{
+	clear:both;
+	font-size:10pt;
+	padding-top:20px;
+	}
+.ms-postfootercolor{color:#949494;}
+/*.ms-PostBody{display:none;}*/
+
+.BlogShortDescription{
+	float: left;
+	padding-left:50px;
+	font-size:12pt;
+	width:450px;
+	color: #777;
+}
+.MainBlogPost{
+	display:none;
+}
+
+</style>

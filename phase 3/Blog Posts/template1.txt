@@ -1,0 +1,10 @@
+<div class="BlogImage">
+Image goes here (delete this text)
+<img src="/community/01112/testblog/Lists/Photos/1880er%20ZurichPersonalAccident.jpg" alt=""/>
+</div>
+<div class="BlogShortDescription">
+A short description goes here, which should describe the post in a few sentenses. Don't put too much in here. The main blog text does not appear in this listing.
+</div>
+<div class="MainBlogPost">
+Main Blog text goes here. Note that the blog post itself only shows this post text, not the short description. This is where the actual articl etext goes, in as many words as you need.
+</div>
